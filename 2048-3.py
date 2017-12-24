@@ -14,7 +14,12 @@ class MyMatrix:
         #                   [2, 0, 0, 0],
         #                   [0, 0, 0, 2],
         #                   [4, 0, 0, 2]]'''
-        self.GameField = [[0 for _ in range(4)] for _ in range(4)]  # [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+        # self.GameField = [[0 for _ in range(4)] for _ in range(4)]  # [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+
+        self.GameField = [[2, 0, 0, 4],
+                          [2, 0, 0, 4],
+                          [0, 0, 0, 2],
+                          [8, 4, 8, 8]]
         self.ScoreStep = 0
         self.add_values(2)
         self.add_values(4)
@@ -40,6 +45,8 @@ class MyMatrix:
         if coordinates:  # if there is at least one 0. Otherwise call is_it_end() to find out that the game is over
             random.shuffle(coordinates)  # for more randomization
             one_coordinate = random.choice(coordinates)
+            print(a)
+            print(one_coordinate)
             self.GameField[one_coordinate[0]][one_coordinate[1]] = a
             self.ScoreStep += 1
             if len(coordinates) == 1:  # there is no 0 anymore,is it over?
@@ -89,7 +96,7 @@ class MyMatrix:
     def move_up(self):
         print('move_up')
         old_game_field = copy.deepcopy(self.GameField)
-        for t in range(3):  # Do it three times to be sure that all the values are moved and after that sum adjacent
+        for t in range(4):  # Do it three times to be sure that all the values are moved and after that sum adjacent
             for i in range(3):  # 3 because we don't have to work with last string
                 for j in range(4):
                     if self.GameField[i][j] == 0:  # If it's 0 - move all elements up and set 0 to the last one
@@ -97,7 +104,8 @@ class MyMatrix:
                             self.GameField[k][j] = self.GameField[k + 1][j]
                             self.GameField[k + 1][j] = 0
                         self.GameField[3][j] = 0
-                    elif self.GameField[i][j] == self.GameField[i + 1][j] and t == 2:  # sum of adjacent and move others
+                    elif self.GameField[i][j] == self.GameField[i + 1][j] and t == 2:
+                        # sum of adjacent and move others
                         self.GameField[i][j] = self.GameField[i][j] + self.GameField[i + 1][j]
                         for k in range(i + 1, 3):
                             self.GameField[k][j] = self.GameField[k + 1][j]
@@ -111,7 +119,7 @@ class MyMatrix:
     def move_down(self):
         print('move_down')
         old_game_field = copy.deepcopy(self.GameField)
-        for t in range(3):  # Do it three times to be sure that all the values are moved and after that sum adjacent
+        for t in range(4):  # Do it three times to be sure that all the values are moved and after that sum adjacent
             for i in range(3, 0, -1):  # 3 because we don't have to work with last string
                 for j in range(4):
                     if self.GameField[i][j] == 0:  # If it's 0 - move all elements up and set 0 to the last one
@@ -133,7 +141,7 @@ class MyMatrix:
     def move_left(self):
         print('move_left')
         old_game_field = copy.deepcopy(self.GameField)
-        for t in range(3):
+        for t in range(4):
             for j in range(3):
                 for i in range(4):
                     if self.GameField[i][j] == 0:
@@ -142,8 +150,14 @@ class MyMatrix:
                             self.GameField[i][k + 1] = 0
                         self.GameField[i][3] = 0
                     elif (self.GameField[i][j] == self.GameField[i][j + 1] and t == 2):
+                        print('elif')
+                        print(i,j)
+                        print(self.GameField[i][j] + self.GameField[i][j + 1])
                         self.GameField[i][j] = self.GameField[i][j] + self.GameField[i][j + 1]
+                        if j == 2:
+                            self.GameField[i][j + 1] = 0
                         for k in range(j + 1, 3):
+                            print('this')
                             self.GameField[i][k] = self.GameField[i][k + 1]
                             self.GameField[i][k + 1] = 0
         if self.GameField == old_game_field:
@@ -155,7 +169,7 @@ class MyMatrix:
     def move_right(self):
         print('move_right')
         old_game_field = copy.deepcopy(self.GameField)
-        for t in range(3):
+        for t in range(4):
             for j in range(3, 0, -1):
                 for i in range(4):
                     if self.GameField[i][j] == 0:
@@ -165,6 +179,8 @@ class MyMatrix:
                         self.GameField[i][0] = 0
                     elif (self.GameField[i][j] == self.GameField[i][j - 1] and t == 2):
                         self.GameField[i][j] = self.GameField[i][j] + self.GameField[i][j - 1]
+                        if j == 1:
+                            self.GameField[i][j - 1] = 0
                         for k in range(j - 1, 0, -1):
                             self.GameField[i][k] = self.GameField[i][k - 1]
                             self.GameField[i][k - 1] = 0
