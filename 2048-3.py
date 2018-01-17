@@ -14,12 +14,12 @@ class MyMatrix:
         #                   [2, 0, 0, 0],
         #                   [0, 0, 0, 2],
         #                   [4, 0, 0, 2]]'''
-        # self.GameField = [[0 for _ in range(4)] for _ in range(4)]  # [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+        self.GameField = [[0 for _ in range(4)] for _ in range(4)]  # [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
 
-        self.GameField = [[2, 0, 0, 4],
-                          [2, 0, 0, 4],
-                          [0, 0, 0, 2],
-                          [8, 4, 8, 8]]
+        # self.GameField = [[2, 0, 0, 4],
+        #                   [2, 0, 0, 4],
+        #                   [0, 0, 0, 2],
+        #                   [8, 4, 8, 8]]
         self.ScoreStep = 0
         self.add_values(2)
         self.add_values(4)
